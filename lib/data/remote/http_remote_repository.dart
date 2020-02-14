@@ -18,8 +18,11 @@ class HttpRemoteRepository implements RemoteRepository {
       var jsonBody = json.decode(response.body);
       Map<String, dynamic> jsonList = jsonBody['face'];
       List<String> listEye = jsonList['eyes'].cast<String>();
+      listEye.insert(0, "Select the eyes");
       List<String> listNose = jsonList['nose'].cast<String>();
+      listNose.insert(0, "Select the nose");
       List<String> listMouth = jsonList['mouth'].cast<String>();
+      listMouth.insert(0, "Select the mouth");
 
       Propertis propertisEye = Propertis.fromJson(listEye);
       atributes.add(propertisEye);

@@ -15,6 +15,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   String eyes = "Select the eyes";
   String nose = "Select the nose";
   String mouth = "Select the mouth";
+  String url = "";
   List<String> eyesValues = ["hola", "adios", "se fue"];
   List<String> noseValues = ["hola", "adios", "se fue"];
   List<String> moutValues = ["hola", "adios", "se fue"];
@@ -86,7 +87,9 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                 hint: Text(eyes),
                 onChanged: (newVal) {
                   eyes = newVal;
-                  setState(() {});
+                  setState(() {
+                    homePresenter.selectionChanged(eyes, mouth, nose);
+                  });
                 }),
             DropdownButton<String>(
                 items: noseValues.map((String val) {
@@ -99,7 +102,9 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                 onChanged: (newVal) {
                   nose = newVal;
                   print(mouth);
-                  setState(() {});
+                  setState(() {
+                    homePresenter.selectionChanged(eyes, mouth, nose);
+                  });
                 }),
             DropdownButton<String>(
                 items: moutValues.map((String val) {
@@ -112,8 +117,16 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                 onChanged: (newVal) {
                   mouth = newVal;
                   print(mouth);
-                  setState(() {});
+                  setState(() {
+                    homePresenter.selectionChanged(eyes, mouth, nose);
+                  });
                 }),
+            url.isEmpty
+                ? Container()
+                : CircleAvatar(
+                    backgroundImage: NetworkImage(url),
+                    radius: 190,
+                  )
           ],
         ),
       ),
@@ -127,5 +140,10 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
       noseValues = propertis[1].atributtes;
       moutValues = propertis[2].atributtes;
     });
+  }
+
+  @override
+  showImage(String url) {
+    this.url = url;
   }
 }
