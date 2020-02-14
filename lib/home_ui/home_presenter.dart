@@ -13,11 +13,12 @@ class HomePresenter {
 
   HomePresenter(this._view, this._remoteRepository, this._localRepository);
 
-
   Future<void> init() async {
     UsernameSave usernameSave = await _localRepository.getUsername();
-    if(usernameSave.username.isNotEmpty) {
-      _view.goToDetail();
+    if (usernameSave != null) {
+      if (usernameSave.username.isNotEmpty) {
+        _view.goToDetail();
+      }
     }
     propertis = await _remoteRepository.getPropertis();
     _view.showOptions(propertis);
@@ -35,9 +36,9 @@ class HomePresenter {
     }
   }
 
-  Future<void> saveTapped(String username,String url) async {
+  Future<void> saveTapped(String username, String url) async {
     if (username.isNotEmpty && url.isNotEmpty) {
-      UsernameSave usernameSave = UsernameSave(username,url);
+      UsernameSave usernameSave = UsernameSave(username, url);
       UsernameSave usernameResponse =
           await _localRepository.saveUsername(usernameSave);
 

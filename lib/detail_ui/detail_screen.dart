@@ -10,7 +10,7 @@ class DetailSceen extends StatefulWidget {
 class _DetailSceenState extends State<DetailSceen> implements DetailView {
   DetailPresenter _presenter;
   String username;
-  String url="";
+  String url = "";
 
   @override
   void initState() {
