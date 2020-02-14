@@ -1,5 +1,5 @@
-import 'package:examen_flutter_alejandrocruz/data/model/Question.dart';
+import 'package:examen_flutter_alejandrocruz/data/model/propertis.dart';
 
 abstract class RemoteRepository{
-  Future<List<Question>> getQuestions(){}
+  Future<List<Propertis>> getPropertis(){}
 }
