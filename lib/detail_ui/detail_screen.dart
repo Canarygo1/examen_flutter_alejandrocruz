@@ -1,18 +1,24 @@
+import 'package:examen_flutter_alejandrocruz/InjectorSharedPreference.dart';
 import 'package:examen_flutter_alejandrocruz/detail_ui/detail_presenter.dart';
 import 'package:flutter/material.dart';
 
 class DetailSceen extends StatefulWidget {
-  final String url;
-  final String name;
-
-  DetailSceen(this.url, this.name);
-
   @override
   _DetailSceenState createState() => _DetailSceenState();
 }
 
 class _DetailSceenState extends State<DetailSceen> implements DetailView {
   DetailPresenter _presenter;
+  String username;
+  String url="";
+
+  @override
+  void initState() {
+    _presenter = DetailPresenter(
+        this, InjectorSharedPreference.instance.localRepository);
+    _presenter.init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +30,27 @@ class _DetailSceenState extends State<DetailSceen> implements DetailView {
         children: <Widget>[
           Center(
               child: Text(
-            "Hello " + widget.name,
+            "Hello " + username,
             style: TextStyle(
               fontSize: 60,
             ),
           )),
-          widget.url.isEmpty
-              ? Container()
-              : Center(
-                  child: CircleAvatar(
-                    backgroundImage: NetworkImage(widget.url),
-                    radius: 190,
-                  ),
-                )
+          Center(
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(url),
+              radius: 190,
+            ),
+          )
         ],
       ),
     );
+  }
+
+  @override
+  showUsername(String username, String url) {
+    setState(() {
+      this.username = username;
+      this.url = url;
+    });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:examen_flutter_alejandrocruz/InjectorSharedPreference.dart';
 import 'package:examen_flutter_alejandrocruz/data/model/propertis.dart';
 import 'package:examen_flutter_alejandrocruz/detail_ui/detail_screen.dart';
 import 'package:examen_flutter_alejandrocruz/home_ui/home_presenter.dart';
@@ -25,7 +26,8 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
 
   @override
   void initState() {
-    homePresenter = HomePresenter(this, Injector.instance.remoteRepository);
+    homePresenter = HomePresenter(this, Injector.instance.remoteRepository,
+        InjectorSharedPreference.instance.localRepository);
     homePresenter.init();
     super.initState();
   }
@@ -46,13 +48,8 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                   child: GestureDetector(
-                      onTap: () => {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        DetailSceen(url, nameController.text)))
-                          },
+                      onTap: () =>
+                          {homePresenter.saveTapped(nameController.text, url)},
                       child: Text(
                         "SAVE AVATAR",
                         style: TextStyle(fontSize: 18),
@@ -155,4 +152,13 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   showImage(String url) {
     this.url = url;
   }
+
+  @override
+  goToDetail() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => DetailSceen()));
+  }
+
+  @override
+  nosave() {}
 }
