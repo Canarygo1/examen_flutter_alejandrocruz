@@ -13,7 +13,12 @@ class HomePresenter {
 
   HomePresenter(this._view, this._remoteRepository, this._localRepository);
 
+
   Future<void> init() async {
+    UsernameSave usernameSave = await _localRepository.getUsername();
+    if(usernameSave.username.isNotEmpty) {
+      _view.goToDetail();
+    }
     propertis = await _remoteRepository.getPropertis();
     _view.showOptions(propertis);
   }
