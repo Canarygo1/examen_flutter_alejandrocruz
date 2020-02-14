@@ -1,4 +1,5 @@
 import 'package:examen_flutter_alejandrocruz/data/model/propertis.dart';
+import 'package:examen_flutter_alejandrocruz/detail_ui/detail_screen.dart';
 import 'package:examen_flutter_alejandrocruz/home_ui/home_presenter.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> implements HomeView {
   HomePresenter homePresenter;
   TextEditingController usernameController = new TextEditingController();
+  TextEditingController nameController = new TextEditingController();
+
   String eyes = "Select the eyes";
   String nose = "Select the nose";
   String mouth = "Select the mouth";
@@ -43,7 +46,13 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                   child: GestureDetector(
-                      onTap: () => {},
+                      onTap: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        DetailSceen(url, nameController.text)))
+                          },
                       child: Text(
                         "SAVE AVATAR",
                         style: TextStyle(fontSize: 18),
@@ -65,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                   hintText: "username", prefixIcon: Icon(Icons.person)),
             ),
             TextField(
-              controller: usernameController,
+              controller: nameController,
               keyboardType: TextInputType.number,
               decoration: new InputDecoration(
                   hintText: "name", prefixIcon: Icon(Icons.person)),
